@@ -1,76 +1,76 @@
 default_language_version:
-    python: python3
+  python: python3
 repos:
-    - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v4.4.0  # Use the ref you want to point at
-      hooks:
-        - id: check-added-large-files
-        - id: check-docstring-first
-        - id: check-merge-conflict
-        - id: end-of-file-fixer
-        - id: trailing-whitespace
-        - id: debug-statements
-        - id: detect-aws-credentials
-          args: ["--allow-missing-credentials"]
-        - id: detect-private-key
-        - id: check-builtin-literals
-        - id: check-shebang-scripts-are-executable
-        - id: check-yaml
-        - id: check-toml
-        - id: check-case-conflict
-        - id: mixed-line-ending
-        - id: check-ast
-    - repo: https://github.com/asottile/pyupgrade
-      rev: v3.15.0
-      hooks:
-        - id: pyupgrade
-          args: ["--py39-plus", "--keep-runtime-typing"]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0 # Use the ref you want to point at
+    hooks:
+      - id: check-added-large-files
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: debug-statements
+      - id: detect-aws-credentials
+        args: ["--allow-missing-credentials"]
+      - id: detect-private-key
+      - id: check-builtin-literals
+      - id: check-shebang-scripts-are-executable
+      - id: check-yaml
+      - id: check-toml
+      - id: check-case-conflict
+      - id: mixed-line-ending
+      - id: check-ast
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.21.2
+    hooks:
+      - id: pyupgrade
+        args: ["--py310-plus", "--keep-runtime-typing"]
 
-    - repo: https://github.com/astral-sh/ruff-pre-commit
-      rev: v0.11.6
-      hooks:
-        # Run the linter.
-        - id: ruff
-          args: [ --fix, --output-format, concise, --statistics ]
-        # Run the formatter.
-        - id: ruff-format
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.11
+    hooks:
+      # Run the linter.
+      - id: ruff-check
+        args: [--fix, --output-format, concise, --statistics]
+      # Run the formatter.
+      - id: ruff-format
 
-    - repo: https://github.com/pre-commit/pygrep-hooks
-      rev: v1.10.0
-      hooks:
-        - id: python-check-blanket-noqa
-        - id: python-check-blanket-type-ignore
-        - id: python-check-mock-methods
-        - id: python-no-eval
-        - id: python-no-log-warn
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-check-blanket-noqa
+      - id: python-check-blanket-type-ignore
+      - id: python-check-mock-methods
+      - id: python-no-eval
+      - id: python-no-log-warn
 
-    - repo: https://github.com/jendrikseipp/vulture
-      rev: "v2.10"
-      hooks:
-        - id: vulture
-          args:
-            - --min-confidence
-            - "100"
-            - --sort-by-size
-            - "src/cpyu"
-            - "tests"
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: "v2.14"
+    hooks:
+      - id: vulture
+        args:
+          - --min-confidence
+          - "100"
+          - --sort-by-size
+          - "src/cpyu"
+          - "tests"
 
-    - repo: https://github.com/pycqa/bandit
-      rev: 1.7.5
-      hooks:
-        - id: bandit
-          args:
-            - "-c"
-            - "pyproject.toml"
-            - "--quiet"
-            - "src/cpyu/"
-          # Needed if using pyproject.toml for config
-          additional_dependencies: ["bandit[toml]"]
-          pass_filenames: false
-    # GHA linting
-    - repo: https://github.com/python-jsonschema/check-jsonschema
-      rev: "0.27.0"
-      hooks:
-        - id: check-github-workflows
-        # - id: check-readthedocs
-        - id: check-dependabot
+  - repo: https://github.com/pycqa/bandit
+    rev: 1.9.2
+    hooks:
+      - id: bandit
+        args:
+          - "-c"
+          - "pyproject.toml"
+          - "--quiet"
+          - "src/cpyu/"
+        # Needed if using pyproject.toml for config
+        additional_dependencies: ["bandit[toml]"]
+        pass_filenames: false
+  # GHA linting
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: "0.36.0"
+    hooks:
+      - id: check-github-workflows
+      # - id: check-readthedocs
+      - id: check-dependabot

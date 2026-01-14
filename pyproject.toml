@@ -7,16 +7,16 @@ name = "cpyu"
 dynamic = ["version"]
 description = "Zero-dependency, pure Python CPU info"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 keywords = ["cpu"]
 authors = [{ name = "Bernard Cooke", email = "bernard-cooke@hotmail.com" }]
 classifiers = [
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Programming Language :: Python :: Implementation :: CPython",
 ]
 dependencies = []
@@ -33,7 +33,7 @@ dev = [
   "pytest-pretty",
   "pytest-env",
   "pytest-unused-fixtures>=0.2.0",
-  "ruff==0.11.6",
+  "ruff>=0.11.6",
   "bandit[toml]>=1.7.5",
   "vulture>=2.10",
   "pyupgrade>=3.15.0",
@@ -96,7 +96,6 @@ ignore_missing_imports = false
 disallow_untyped_defs = true
 
 [tool.coverage.run]
-source = ["src/cpyu"]
 branch = true
 parallel = true
 
