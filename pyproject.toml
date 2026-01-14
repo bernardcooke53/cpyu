@@ -1,0 +1,114 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cpyu"
+dynamic = ["version"]
+description = "Zero-dependency, pure Python CPU info"
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["cpu"]
+authors = [{ name = "Bernard Cooke", email = "bernard-cooke@hotmail.com" }]
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "tox>=4.4.7",
+  "mypy>=1.6.1",
+  "pytest>=7.1.2",
+  "pytest-mock>=3.8.2",
+  "coverage[toml]>=7.2.1",
+  "pytest-clarity",
+  "pytest-mock",
+  "pytest-pretty",
+  "pytest-env",
+  "pytest-unused-fixtures>=0.2.0",
+  "ruff==0.11.6",
+  "bandit[toml]>=1.7.5",
+  "vulture>=2.10",
+  "pyupgrade>=3.15.0",
+  # typing dependencies
+  "types-PyYAML",
+  "types-requests",
+  "boto3-stubs",
+]
+
+[project.scripts]
+
+[tool.hatch.version]
+path = "src/cpyu/__init__.py"
+
+[tool.ruff]
+src = ["src", "tests"]
+
+[tool.ruff.lint.per-file-ignores]
+# Imported but unused
+"__init__.py" = ["F401"]
+
+"tests/**/*" = [
+  # magic values
+  "PLR2004",
+  # unused arguments - likely fixtures to be moved to
+  # @pytest.mark.usefixtures
+  "ARG001",
+  "ARG002",
+  "ARG004",
+  # "assert" used
+  "S101",
+  # Private member access
+  "SLF001",
+  # Annotations
+  "ANN",
+  # lowercase function names
+  "N802",
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+forced-separate = ["tests"]
+relative-imports-order = "closest-to-furthest"
+section-order = [
+  "future",
+  "standard-library",
+  "third-party",
+  "first-party",
+  "tests",
+  "local-folder",
+]
+sections = { "tests" = ["tests"] }
+
+
+[tool.mypy]
+pretty = true
+cache_dir = "/dev/null"
+namespace_packages = true
+ignore_missing_imports = false
+disallow_untyped_defs = true
+
+[tool.coverage.run]
+source = ["src/cpyu"]
+branch = true
+parallel = true
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.pytest.ini_options]
+addopts = "--unused-fixtures"
+norecursedirs = ["dist", "build", ".tox"]
+testpaths = ["tests"]
+
+[tool.pytest_env]
+
+[tool.bandit]
+target = "src"

@@ -1,0 +1,51 @@
+---
+version: 2
+updates:
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "14:00"
+    commit-message:
+      prefix: "deps(python)"
+      include: "scope"
+    labels:
+      - dependencies
+      - dependabot
+    open-pull-requests-limit: 10
+    rebase-strategy: auto
+    versioning-strategy: "increase-if-necessary"
+
+  # Maintain dependencies for Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "14:00"
+    labels:
+      - dependencies
+      - dependabot
+    rebase-strategy: auto
+    commit-message:
+      prefix: "deps(docker)"
+      include: "scope"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "14:00"
+    commit-message:
+      prefix: "deps(ci)"
+    labels:
+      - dependencies
+      - dependabot
+    rebase-strategy: auto
+    groups:
+      github-actions:
+        patterns:
+        - "*"
